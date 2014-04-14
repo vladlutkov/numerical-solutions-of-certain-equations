@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="main">
+<head>
+  <meta charset="UTF-8">
+  <title>Численное решение некоторых уравнений</title>
+  <link rel="stylesheet" type="text/css" href="lib/vendor/bootstrap/dist/css/bootstrap.css">
+  <script src="lib/vendor/jquery/dist/jquery.js"></script>
+  <script src="lib/vendor/angular/angular.js"></script>
+  <script src="lib/vendor/angular-route/angular-route.js"></script>
+  
+  <script type="text/javascript" src="lib/modules/app.js"></script>
+  <script type="text/javascript" src="lib/modules/beta/module.js"></script>
+  <script type="text/javascript" src="lib/modules/beta/controllers/beta.js"></script>
+</head>
+<body style="padding-top: 50px;">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Численное решение некоторых уравнений</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#beta">Beta</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" ng-view>
+  </div>
+
+</body>
+</html>
