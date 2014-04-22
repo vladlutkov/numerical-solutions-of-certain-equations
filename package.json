@@ -1,0 +1,23 @@
+{
+  "name": "numerical-solutions-of-certain-equations",
+  "version": "1.0.0",
+  "description": "Diploma",
+  "main": "web_backend/server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vladlutkov/numerical-solutions-of-certain-equations.git"
+  },
+  "author": "Vladislav Lutkov",
+  "homepage": "https://github.com/vladlutkov/numerical-solutions-of-certain-equations",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "method-override": "*"
+  },
+  "devDependencies": {
+    "coffee-script": "*"
+  },
+  "scripts": {
+    "prepublish": "coffee --compile --output  web_frontend/lib/ web_frontend/src/"
+  }
+}

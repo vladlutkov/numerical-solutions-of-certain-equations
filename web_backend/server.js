@@ -38,8 +38,12 @@ app.get("/profiles/:id/categories", function(req, res){
 	res.json(cats.slice(1, 3));
 });
 
-app.post("/login", function(req, res){
-	console.log(req.body);
+app.post("/data", function(req, res){
+	var result = [];
+	for(var x = -10; x < 10; x += 1) {
+		eval("result.push([x, " + req.body.formula + "]);")
+	}
+	res.json(result);
 });
 
 app.listen(3000);

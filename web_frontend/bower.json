@@ -15,8 +15,8 @@
   ],
   "dependencies": {
     "jquery": "",
-    "angular": "",
-    "angular-route": "",
-    "bootstrap": ""
+    "bootstrap": "",
+    "bootbox": "",
+    "jqplot": ""
   }
 }
