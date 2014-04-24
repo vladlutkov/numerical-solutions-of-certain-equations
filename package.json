@@ -10,14 +10,20 @@
   "author": "Vladislav Lutkov",
   "homepage": "https://github.com/vladlutkov/numerical-solutions-of-certain-equations",
   "dependencies": {
-    "express": "*",
-    "body-parser": "*",
-    "method-override": "*"
+    "express": "^4.0.0",
+    "body-parser": "^1.0.2",
+    "method-override": "^1.0.0"
   },
   "devDependencies": {
-    "coffee-script": "*"
+    "gulp": "^3.6.2",
+    "gulp-coffee": "^1.4.2",
+    "gulp-uglify": "^0.2.1",
+    "gulp-concat": "^2.2.0"
   },
   "scripts": {
     "prepublish": "coffee --compile --output  web_frontend/lib/ web_frontend/src/"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
