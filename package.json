@@ -20,9 +20,6 @@
     "gulp-uglify": "^0.2.1",
     "gulp-concat": "^2.2.0"
   },
-  "scripts": {
-    "prepublish": "coffee --compile --output  web_frontend/lib/ web_frontend/src/"
-  },
   "engines": {
     "node": "0.10.x"
   }
