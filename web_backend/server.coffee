@@ -30,4 +30,4 @@ app.post "/data", (req, res) ->
 
   res.json result
 
-app.listen 3000
+app.listen Number(process.env.PORT or 5000)

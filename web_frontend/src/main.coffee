@@ -56,7 +56,7 @@ validate = ->
     valid = false
     message = "Поле не должно быть пустым"
 
-  unless /^(x|\d|\+|-|\*|\/|\(|\)|\s|Math\.\w+)*$/.test(textarea.val())
+  unless /^(x|\d|\+|-|\*|\/|\(|\)|\s|Math\.\w+|,)*$/.test(textarea.val())
     valid = false
     message = "Неправильная формула. Прочтите документацию."
 
