@@ -9,10 +9,11 @@ $(document).ready ->
 
   chart.css "width", $(document).width() - 340
   chart.css "height", $(document).height - 90
-  textarea.on "keypress", validate
+  textarea.on "keyup", validate
   submit.on "click", draw
 
-draw = -> 
+draw = ->
+  return unless validate()
   chart.html """
     <div class="progress progress-striped active">
       <div class="progress-bar"  role="progressbar" style="width: 100%"></div>
@@ -34,7 +35,7 @@ draw = ->
       bootbox.alert "/data POST error"
 
 drawChart = (data)->
-  $.jqplot "chart", data, 
+  $.jqplot "chart", [data], 
     axes:
       xaxis:
         label: "X"
@@ -45,5 +46,23 @@ drawChart = (data)->
     series: [showMarker: false]
 
 validate = ->
-  console.log "validate()"
-  # TODO
+  valid = true
+  #formula area
+  parent = textarea.parent()
+  parent.removeClass "has-error"
+  parent.children(".alert").remove()
+
+  if not textarea.val() or textarea.val() is ""
+    valid = false
+    message = "Поле не должно быть пустым"
+
+  unless /^(x|\d|\+|-|\*|\/|\(|\)|\s|Math\.\w+)*$/.test(textarea.val())
+    valid = false
+    message = "Неправильная формула. Прочтите документацию."
+
+  unless valid
+    parent.addClass "has-error"
+    parent.append """
+        <div class="alert alert-danger">#{message}</div>
+      """
+  valid

@@ -5,7 +5,7 @@
 
   <title>Численное решение некоторых уравнений</title>
 
-  <link rel="stylesheet" type="text/css" href="lib/vendor/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="lib/vendor/bootstrap/dist/css/bootstrap.min.css">
 
   <script type="text/javascript" src="lib/vendor/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="lib/vendor/bootstrap/dist/js/bootstrap.js"></script>
@@ -21,11 +21,11 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Численное решение некоторых уравнений</a>
+        <a class="navbar-brand" href="javascript:void(0)">Численное решение некоторых уравнений</a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="javascript:void(0)">Beta</a></li>
+          <li><a href="javascript:void(0)" data-toggle="modal" data-target="#docs">Документация</a></li>
         </ul>
       </div>
     </div>
@@ -35,7 +35,10 @@
     <div class="row">
       <br>
       <div class="col-xs-4">
+        <div class="form-group">
         <textarea id="formula" class="form-control" rows="3" placeholder="Введите формулу..." style="resize: none;"></textarea>
+        <br>
+        </div>
       </div>
       <br>
       <div class="col-xs-4">
@@ -44,7 +47,22 @@
     </div>
     <br>
     <div class="row">
-      <div id="chart" class="col-xs-12">
+      <div class="col-xs-12">
+        <div id="chart" style="margin-left: 10px;"></div>
+      </div>
+    </div>
+  </div>
+  <div id="docs" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Документация</h4>
+        </div>
+        <div class="modal-body">
+          <h5>Введите формулу с синтаксисом JavaScript.</h5>
+          <div class="alert alert-info">Возможно использование объекта Math.</div>
+        </div>
       </div>
     </div>
   </div>

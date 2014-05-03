@@ -21,9 +21,13 @@ app.get "/", (req, res) ->
     res.end()
 
 app.post "/data", (req, res) ->
-  result = [];
-  for x in [-10..10]
+  result = []
+  
+  x = -10
+  while x <= 10
     eval "result.push([x, " + req.body.formula + "]);"
+    x += 0.1
+
   res.json result
 
 app.listen 3000
