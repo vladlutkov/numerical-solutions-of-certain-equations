@@ -1,0 +1,7 @@
+login: s0051
+password: M7CtgVdek3
+
+scp calc.cxx s0051@umt.imm.uran.ru:~/
+ssh s0051@umt.imm.uran.ru
+
+mpicxx –o calc calc.cxx

@@ -1,0 +1,13 @@
+POST /data
+
+REQUEST:
+data: {
+	formula: "x+2+1+...+Math.pow(x,2)"
+}
+
+RESPONSE:
+data: [
+	[x0, y0],
+	...
+	[xN, yN]
+]
