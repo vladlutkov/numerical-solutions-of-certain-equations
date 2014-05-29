@@ -3,5 +3,7 @@ password: M7CtgVdek3
 
 scp calc.cxx s0051@umt.imm.uran.ru:~/
 ssh s0051@umt.imm.uran.ru
+scp s0051@umt.imm.uran.ru:~/solution.json
 
 mpicxx –o calc calc.cxx
+
