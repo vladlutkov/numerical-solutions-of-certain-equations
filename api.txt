@@ -2,7 +2,15 @@ POST /data
 
 REQUEST:
 data: {
-	formula: "x+2+1+...+Math.pow(x,2)"
+	func: String,
+	nu: String,
+	gu: String,
+	x0: Integer,
+	xn: Integer,
+	t0: Integer,
+	tn: Integer,
+	xcount: Integer,
+	tcount: Integer
 }
 
 RESPONSE:

@@ -60,29 +60,29 @@ postData = function(formula) {
   });
 }
 
-postData();
-// app.get("/", function(req, res) {
-//   return fs.readFile("site/index.html", function(err, html) {
-//     if (err) {
-//       throw err;
-//     }
-//     res.writeHeader(200, {
-//       "Content-Type": "text/html"
-//     });
-//     res.write(html);
-//     return res.end();
-//   });
-// });
 
-// app.post("/data", function(req, res) {
-//   var result, x;
-//   result = [];
-//   x = -10;
-//   while (x <= 10) {
-//     eval("result.push([x, " + req.body.formula + "]);");
-//     x += 0.1;
-//   }
-//   return res.json(result);
-// });
+app.get("/", function(req, res) {
+  return fs.readFile("site/index.html", function(err, html) {
+    if (err) {
+      throw err;
+    }
+    res.writeHeader(200, {
+      "Content-Type": "text/html"
+    });
+    res.write(html);
+    return res.end();
+  });
+});
 
-// app.listen(3000);
+app.post("/data", function(req, res) {
+  var result, x;
+  result = [];
+  x = -10;
+  while (x <= 10) {
+    eval("result.push([x, " + req.body.formula + "]);");
+    x += 0.1;
+  }
+  return res.json(result);
+});
+
+app.listen(3000);
