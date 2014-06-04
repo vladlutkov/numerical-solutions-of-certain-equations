@@ -1,22 +1,10 @@
-var app, express, fs, log;
-
-fs = require("fs");
-express = require("express");
-app = express();
-app.use(require("body-parser")());
-app.use(require("method-override")());
-app.use("/", express["static"]("site/"));
+filename = "calc1.cxx";
 
 log = function(str) {
   console.log("### Service Action ###");
   console.log("Message: " + str);
   return console.log("######################");
 };
-
-generateFile = function(data) {
-  var code = "";
-  
-}
 
 postData = function(formula) {
   var spawn = require("child_process").spawn;
@@ -65,23 +53,4 @@ postData = function(formula) {
 }
 
 
-app.get("/", function(req, res) {
-  return fs.readFile("site/index.html", function(err, html) {
-    if (err) {
-      throw err;
-    }
-    res.writeHeader(200, {
-      "Content-Type": "text/html"
-    });
-    res.write(html);
-    return res.end();
-  });
-});
-
-app.post("/data", function(req, res) {
-  generateFile(req.body);
-  postData();
-  return res.json(getData());
-});
-
-app.listen(3000);
+postData()
