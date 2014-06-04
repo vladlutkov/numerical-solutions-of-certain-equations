@@ -13,14 +13,14 @@ var ssh = spawn("ssh", ["-tt", "s0051@umt.imm.uran.ru"]);
 
 var commands = {
   prepare: [
-  "mpicxx -o " + filename + " " + filename + ".cxx"
+    "mpicxx -o " + filename + " " + filename + ".cxx"
   ],
   execute: [
-  "./" + filename
+    "./" + filename
   ],
   terminate: [
-  "exit",
-  "rm " + filename + " " + filename + ".cxx"
+    "exit",
+    "rm " + filename + " " + filename + ".cxx"
   ]
 };
 
