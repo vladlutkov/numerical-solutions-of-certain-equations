@@ -11,67 +11,63 @@ log = function(str) {
   console.log("### Service Action ###");
   console.log("Message: " + str);
   return console.log("######################");
-};
+}
 
 generateFile = function(data) {
-  var code = "";
-  code += "#include <iostream>";
-  code += "#include <fstream>";
-  code += "#include <cmath>";
-  code += "#include <list>";
+  var code = "\r\n";
+  code += "#include <iostream>\r\n";
+  code += "#include <fstream>\r\n";
+  code += "#include <cmath>\r\n";
+  code += "#include <list>\r\n";
+  code += "double func(double t, double x) {\r\n";
+  code += "  return " + data.func + ";\r\n";
+  code += "}\r\n";
+  code += "double nu(double t, double x) {\r\n";
+  code += "  return " + data.nu + ";\r\n";
+  code += "}\r\n";
+  code += "double gu(double t, double x) {\r\n";
+  code += "  return " + data.gu + ";\r\n";
+  code += "}\r\n";
+  code += "int main()\r\n";
+  code += "{\r\n";
+  code += "  double x0 = " + data.x0 + ";\r\n";
+  code += "  double xn = " + data.xn + ";\r\n";
+  code += "  double t0 = " + data.t0 + ";\r\n";
+  code += "  double tn = " + data.tn + ";\r\n";
+  code += "  int xcount = " + data.xcount + ";\r\n";
+  code += "  int tcount = " + data.tcount + ";\r\n";
 
-  code += "double func(double t, double x) {";
-  code += "  return 2*t + x + cos(t);";
-  code += "}";
-  code += "double nu(double t, double x) {";
-  code += "  return 0;";
-  code += "}";
-  code += "double gu(double t, double x) {";
-  code += "  return 0;";
-  code += "}";
+  code += "  double xh = std::abs(tn - x0) / xcount;\r\n";
+  code += "  double th = std::abs(tn - t0) / tcount;\r\n";
 
-  code += "int main()";
-  code += "{";
-  code += "  double x0 = -1;";
-  code += "  double xn = 1;";
-  code += "  double t0 = -1;";
-  code += "  double tn = 1;";
-  code += "  int xcount = 10;";
-  code += "  int tcount = 10;";
+  code += "  std::list<double> ures;\r\n";
+  code += "  std::list<double> xres;\r\n";
+  code += "  std::list<double> tres;\r\n";
 
-  code += "  double xh = std::abs(tn - x0) / xcount;";
-  code += "  double th = std::abs(tn - t0) / tcount;";
-
-  code += "  std::list<double> ures;";
-  code += "  std::list<double> xres;";
-  code += "  std::list<double> tres;";
-
-  code += "  for(double x = x0; x <= xn; x += xh){";
-  code += "    for(double t = t0; t <= tn; t += th) {";
-  code += "      ures.push_back(func(x, t));";
-  code += "      xres.push_back(x);";
-  code += "      tres.push_back(t);";
-  code += "    }";
-  code += "  }";
-
-  code += "  std::ofstream resultFile(\"resultfile.json\");";
-  code += "  resultFile << \"[\" << std::endl;";
-  code += "  std::cout << \"xh = \" << xh << \", th = \" << th << \", uressize = \" << ures.size() << std::endl;";
-  code += "  int count = ures.size();";
-  code += "  for(int i = 0; i < count; i++) {";
-  code += "    resultFile << \"    [\" << tres.back() << \", \" << xres.back() << \", \" << ures.back() << \"],\" << std::endl;";
-  code += "    tres.pop_back();";
-  code += "    xres.pop_back();";
-  code += "    ures.pop_back();";
-  code += "  }";
-  code += "  resultFile << \"]\" << std::endl;";
-  code += "  resultFile.close();";
-  code += "  std::cout << \"EOW\" << std::endl;";
-  
-  code += "  return 0;";
-  code += "}";
+  code += "  for(double x = x0; x <= xn; x += xh){\r\n";
+  code += "    for(double t = t0; t <= tn; t += th) {\r\n";
+  code += "      ures.push_back(func(x, t));\r\n";
+  code += "      xres.push_back(x);\r\n";
+  code += "      tres.push_back(t);\r\n";
+  code += "    }\r\n";
+  code += "  }\r\n";
+  code += "  std::ofstream resultFile(\"resultfile.json\");\r\n";
+  code += "  resultFile << \"[\" << std::endl;\r\n";
+  code += "  std::cout << \"xh = \" << xh << \", th = \" << th << \", uressize = \" << ures.size() << std::endl;\r\n";
+  code += "  int count = ures.size();\r\n";
+  code += "  for(int i = 0; i < count; i++) {\r\n";
+  code += "    resultFile << \"    [\" << tres.back() << \", \" << xres.back() << \", \" << ures.back() << \"],\" << std::endl;\r\n";
+  code += "    tres.pop_back();\r\n";
+  code += "    xres.pop_back();\r\n";
+  code += "    ures.pop_back();\r\n";
+  code += "  }\r\n";
+  code += "  resultFile << \"]\" << std::endl;\r\n";
+  code += "  resultFile.close();\r\n";
+  code += "  std::cout << \"EOW\" << std::endl;\r\n";
+  code += "  return 0;\r\n";
+  code += "}\r\n";
   code += "\r\n";
-  fs.writeFile("calc.cxx", code);
+  fs.writeFileSync("calc.cxx", code);
 }
 
 postData = function(formula) {
@@ -125,7 +121,6 @@ postData = function(formula) {
   });
 }
 
-
 app.get("/", function(req, res) {
   return fs.readFile("site/index.html", function(err, html) {
     if (err) {
@@ -140,15 +135,12 @@ app.get("/", function(req, res) {
 });
 
 app.post("/data", function(req, res) {
-  // for (var i in req.connection) // обращение к свойствам объекта по индексу
-  //       console.log("req.connection." + i + " = " + req.connection[i]);
-  console.log(req.connection.remoteAddress)
+  generateFile(req.body);
+  postData();
   return res.json({
-    status: "ok"
+    status: "ok",
+    url: "resultfile.json"
   });
-  // generateFile(req.body);
-  // postData();
-  // return res.json(getData());
 });
 
 app.listen(3000);
