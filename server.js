@@ -15,7 +15,63 @@ log = function(str) {
 
 generateFile = function(data) {
   var code = "";
+  code += "#include <iostream>";
+  code += "#include <fstream>";
+  code += "#include <cmath>";
+  code += "#include <list>";
+
+  code += "double func(double t, double x) {";
+  code += "  return 2*t + x + cos(t);";
+  code += "}";
+  code += "double nu(double t, double x) {";
+  code += "  return 0;";
+  code += "}";
+  code += "double gu(double t, double x) {";
+  code += "  return 0;";
+  code += "}";
+
+  code += "int main()";
+  code += "{";
+  code += "  double x0 = -1;";
+  code += "  double xn = 1;";
+  code += "  double t0 = -1;";
+  code += "  double tn = 1;";
+  code += "  int xcount = 10;";
+  code += "  int tcount = 10;";
+
+  code += "  double xh = std::abs(tn - x0) / xcount;";
+  code += "  double th = std::abs(tn - t0) / tcount;";
+
+  code += "  std::list<double> ures;";
+  code += "  std::list<double> xres;";
+  code += "  std::list<double> tres;";
+
+  code += "  for(double x = x0; x <= xn; x += xh){";
+  code += "    for(double t = t0; t <= tn; t += th) {";
+  code += "      ures.push_back(func(x, t));";
+  code += "      xres.push_back(x);";
+  code += "      tres.push_back(t);";
+  code += "    }";
+  code += "  }";
+
+  code += "  std::ofstream resultFile(\"resultfile.json\");";
+  code += "  resultFile << \"[\" << std::endl;";
+  code += "  std::cout << \"xh = \" << xh << \", th = \" << th << \", uressize = \" << ures.size() << std::endl;";
+  code += "  int count = ures.size();";
+  code += "  for(int i = 0; i < count; i++) {";
+  code += "    resultFile << \"    [\" << tres.back() << \", \" << xres.back() << \", \" << ures.back() << \"],\" << std::endl;";
+  code += "    tres.pop_back();";
+  code += "    xres.pop_back();";
+  code += "    ures.pop_back();";
+  code += "  }";
+  code += "  resultFile << \"]\" << std::endl;";
+  code += "  resultFile.close();";
+  code += "  std::cout << \"EOW\" << std::endl;";
   
+  code += "  return 0;";
+  code += "}";
+  code += "\r\n";
+  fs.writeFile("calc.cxx", code);
 }
 
 postData = function(formula) {
@@ -26,6 +82,7 @@ postData = function(formula) {
 
   var commands = {
     prepare: [
+      "rm resultfile.json",
       "mpicxx -o calc calc.cxx"
     ],
     execute: [
@@ -39,6 +96,10 @@ postData = function(formula) {
 
   ssh.stdout.on('data', function (data) {
     console.log('stdout: ' + data);
+
+    if (("" + data).indexOf("EOW") != -1) {
+      spawn("scp", ["s0051@umt.imm.uran.ru:~/resultfile.json", "."]);
+    }
 
     if (("" + data).indexOf("[s0051@umt ~]$") == -1) return;
 
@@ -79,9 +140,15 @@ app.get("/", function(req, res) {
 });
 
 app.post("/data", function(req, res) {
-  generateFile(req.body);
-  postData();
-  return res.json(getData());
+  // for (var i in req.connection) // обращение к свойствам объекта по индексу
+  //       console.log("req.connection." + i + " = " + req.connection[i]);
+  console.log(req.connection.remoteAddress)
+  return res.json({
+    status: "ok"
+  });
+  // generateFile(req.body);
+  // postData();
+  // return res.json(getData());
 });
 
 app.listen(3000);

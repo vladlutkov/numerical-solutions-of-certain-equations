@@ -27,6 +27,10 @@ var commands = {
 ssh.stdout.on('data', function (data) {
   console.log('stdout: ' + data);
 
+  if (("" + data).indexOf("EOW") != -1) {
+    spawn("scp", ["s0051@umt.imm.uran.ru:~/resultfile.json", "."]);
+  }
+
   if (("" + data).indexOf("[s0051@umt ~]$") == -1) return;
 
   if (commands.prepare.length != 0) {
