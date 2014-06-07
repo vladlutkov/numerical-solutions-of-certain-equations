@@ -53,3 +53,5 @@ ssh.stdout.on('data', function (data) {
 ssh.stderr.on('data', function (data) {
   console.log('stderr: ' + data);
 });
+
+console.log("AZAAZAZAZA");

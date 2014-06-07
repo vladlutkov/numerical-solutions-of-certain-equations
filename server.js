@@ -1,4 +1,6 @@
 var app, express, fs, log;
+var inProcess = false;
+var spawn = require("child_process").spawn;
 
 fs = require("fs");
 express = require("express");
@@ -11,6 +13,11 @@ log = function(str) {
   console.log("### Service Action ###");
   console.log("Message: " + str);
   return console.log("######################");
+}
+
+sleep = function(milliSeconds) {
+  var startTime = new Date().getTime();
+  while (new Date().getTime() < startTime + milliSeconds);
 }
 
 generateFile = function(data) {
@@ -71,14 +78,11 @@ generateFile = function(data) {
 }
 
 postData = function(formula) {
-  var spawn = require("child_process").spawn;
-
   var scp = spawn("scp", ["calc.cxx", "s0051@umt.imm.uran.ru:~/"]);
   var ssh = spawn("ssh", ["-tt", "s0051@umt.imm.uran.ru"]);
 
   var commands = {
     prepare: [
-      "rm resultfile.json",
       "mpicxx -o calc calc.cxx"
     ],
     execute: [
@@ -121,6 +125,21 @@ postData = function(formula) {
   });
 }
 
+getData = function() {
+  while (!fs.existsSync("resultfile.json")) {
+    console.log("tut");
+    sleep(1000);
+  }
+  sleep(100);
+  return JSON.parse(fs.readFileSync("resultfile.json"));
+}
+
+removeData = function() {
+  if(fs.existsSync("resultfile.json")) {
+    fs.unlinkSync("resultfile.json");
+  }
+}
+
 app.get("/", function(req, res) {
   return fs.readFile("site/index.html", function(err, html) {
     if (err) {
@@ -135,11 +154,32 @@ app.get("/", function(req, res) {
 });
 
 app.post("/data", function(req, res) {
+  if (inProcess) {
+    res.writeHeader(500);
+    return res.json({
+      status: "fail",
+      message: "Service already used. Try again later!"
+    });
+  }
+
+  inProcess = true;
+
+  removeData();
+
   generateFile(req.body);
+
+  console.log("hello1");
   postData();
+  console.log("hello2");
+  var data = getData();
+  console.log("hello3");
+  removeData();
+
+  inProcess = false;
+
   return res.json({
     status: "ok",
-    url: "resultfile.json"
+    data: data
   });
 });
 
