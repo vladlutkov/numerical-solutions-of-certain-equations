@@ -13,7 +13,18 @@
     tn = $("#tn");
     xcount = $("#xcount");
     tcount = $("#tcount");
-    
+
+    a.val("1");
+    func.val("sin(x)+cos(x)");
+    nu.val("1");
+    gu.val("1");
+    x0.val("0");
+    xn.val("2");
+    t0.val("0");
+    tn.val("2");
+    xcount.val("10");
+    tcount.val("10");
+
     chart = $("#chart");
     submit = $("#submit");
     chart.css("width", $(document).width() - 340);
@@ -42,7 +53,7 @@
       success: function(data) {
         chart.empty();
         submit.button('reset');
-        drawChart(data);
+        drawChart2(data.data);
       },
       error: function(data) {
         chart.empty();
@@ -51,27 +62,4 @@
       }
     });
   };
-
-  drawChart = function(data) {
-    $.jqplot("chart", [data], {
-      axes: {
-        xaxis: {
-          label: "X",
-          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-        },
-        yaxis: {
-          label: 'Y',
-          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-        }
-      },
-      series: [
-        {
-          showMarker: false
-        }
-      ]
-    });
-  };
-
-  
-
 }).call(this);

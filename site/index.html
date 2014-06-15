@@ -10,9 +10,6 @@
   <script type="text/javascript" src="lib/vendor/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="lib/vendor/bootstrap/dist/js/bootstrap.js"></script>
   <script type="text/javascript" src="lib/vendor/bootbox/bootbox.js"></script>
-  <script type="text/javascript" src="lib/vendor/jqplot/jquery.jqplot.js"></script>
-  <script type="text/javascript" src="lib/vendor/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
-  <script type="text/javascript" src="lib/vendor/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
 
   <script type="text/javascript" src="lib/main.js"></script>
 
@@ -38,11 +35,11 @@
           <div class="row">
             <div class="col-xs-1"><img src="images/ut.gif"></div>
             <div class="col-xs-2">
-              <input id="a" type="text" class="form-control" placeholder="a">
+              <input id="a" type="text" class="form-control" placeholder="a" required>
             </div>
             <div class="col-xs-1"><img src="images/ux.gif"></div>
             <div class="col-xs-8">
-              <input id="func" type="text" class="form-control" placeholder="f(t,x,u)">
+              <input id="func" type="text" class="form-control" placeholder="f(t,x,u(x,t))" required>
             </div>
           </div>
         </div>
@@ -51,7 +48,7 @@
           <div class="col-xs-8">
             <div class="input-group">
               <span class="input-group-addon"><img src="images/nu.gif"></span>
-              <input id="nu" type="text" class="form-control">
+              <input id="nu" type="text" class="form-control" placeholder="u(x,t0)" required>
             </div>
           </div>
         </div>
@@ -60,7 +57,7 @@
           <div class="col-xs-8">
             <div class="input-group">
               <span class="input-group-addon"><img src="images/gu.gif"></span>
-              <input id="gu" type="text" class="form-control">
+              <input id="gu" type="text" class="form-control" placeholder="u(x0,t)" required>
             </div>
           </div>
         </div>
@@ -68,9 +65,9 @@
         <div class="row">
           <div class="col-xs-3">
             <div class="input-group">
-              <input id="x0" type="text" class="form-control">
+              <input id="x0" type="text" class="form-control" required>
               <span class="input-group-addon"><img src="images/dotx.gif"></span>
-              <input id="xn" type="text" class="form-control">
+              <input id="xn" type="text" class="form-control" required>
             </div>
           </div>
         </div>
@@ -78,9 +75,9 @@
         <div class="row">
           <div class="col-xs-3">
             <div class="input-group">
-              <input id="t0" type="text" class="form-control">
+              <input id="t0" type="text" class="form-control" required>
               <span class="input-group-addon"><img src="images/dott.gif"></span>
-              <input id="tn" type="text" class="form-control">
+              <input id="tn" type="text" class="form-control" required>
             </div>
           </div>
         </div>
@@ -89,7 +86,7 @@
           <div class="col-xs-5">
             <div class="input-group">
               <span class="input-group-addon">Число точек разбиения по X</span>
-              <input id="xcount" type="number" class="form-control has-error">
+              <input id="xcount" type="number" class="form-control has-error" min="1" max="100" required>
             </div>
           </div>
         </div>
@@ -98,7 +95,7 @@
           <div class="col-xs-5">
             <div class="input-group">
               <span class="input-group-addon">Число точек разбиения по t</span>
-              <input id="tcount" type="number" class="form-control">
+              <input id="tcount" type="number" class="form-control" min="1" max="100" required>
             </div>
           </div>
         </div>
@@ -121,8 +118,8 @@
           <h4 class="modal-title" id="myModalLabel">Документация</h4>
         </div>
         <div class="modal-body">
-          <h5>Введите формулу с синтаксисом JavaScript.</h5>
-          <div class="alert alert-info">Возможно использование объекта Math.</div>
+          <h5>Введите формулу с синтаксисом С++.</h5>
+          <div class="alert alert-info">Возможно использование объекта math.h.</div>
         </div>
       </div>
     </div>

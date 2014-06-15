@@ -41,8 +41,14 @@ generateFile = function(data) {
   code += "  resultFile << \"[\" << std::endl;\r\n";
   code += "  std::cout << \"xh = \" << xh << \", th = \" << th << \", uressize = \" << ures.size() << std::endl;\r\n";
   code += "  int count = ures.size();\r\n";
-  code += "  for(int i = 0; i < count; i++) {\r\n";
+  code += "  for(int i = 0; i < count-1; i++) {\r\n";
   code += "    resultFile << \"    [\" << tres.back() << \", \" << xres.back() << \", \" << ures.back() << \"],\" << std::endl;\r\n";
+  code += "    tres.pop_back();\r\n";
+  code += "    xres.pop_back();\r\n";
+  code += "    ures.pop_back();\r\n";
+  code += "  }\r\n";
+  code += "  if(count > 0) {\r\n";
+  code += "    resultFile << \"    [\" << tres.back() << \", \" << xres.back() << \", \" << ures.back() << \"]\" << std::endl;\r\n";
   code += "    tres.pop_back();\r\n";
   code += "    xres.pop_back();\r\n";
   code += "    ures.pop_back();\r\n";
@@ -55,4 +61,14 @@ generateFile = function(data) {
   code += "\r\n";
   fs.writeFile("calc.cxx", code);
 }
-generateFile()
+generateFile({
+  func: "cos(t) + sin(t) + 2*x",
+  nu: 0,
+  gu: 0,
+  x0: 1,
+  xn: 2,
+  t0: 0,
+  tn: 4,
+  xcount: 10,
+  tcount: 10
+})
