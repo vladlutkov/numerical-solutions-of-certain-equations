@@ -5,10 +5,10 @@
 
   <title>Численное решение некоторых уравнений</title>
 
-  <link rel="stylesheet" type="text/css" href="lib/vendor/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/vendor/bootstrap/css/bootstrap.min.css">
 
   <script type="text/javascript" src="lib/vendor/jquery/dist/jquery.js"></script>
-  <script type="text/javascript" src="lib/vendor/bootstrap/dist/js/bootstrap.js"></script>
+  <script type="text/javascript" src="lib/vendor/bootstrap/js/bootstrap.js"></script>
   <script type="text/javascript" src="lib/vendor/bootbox/bootbox.js"></script>
 
   <script type="text/javascript" src="lib/main.js"></script>
@@ -100,13 +100,19 @@
           </div>
         </div>
         <br>
-        <button type="submit" id="submit" class="btn btn-primary" data-loading-text="Считаем...">Посчитать</button>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-xs-12">
-        <div id="chart" style="margin-left: 10px;"></div>
+        <div class="row">
+          <div class="col-xs-2">
+            <button type="submit" id="submit" class="btn btn-primary" data-loading-text="Считаем...">
+              Посчитать
+            </button>
+          </div>
+          <div class="col-xs-2">
+            <a href="/resultfile.json" class="btn btn-default" disabled="disabled">
+              <span class="glyphicon glyphicon-download"></span>
+              Скачать
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

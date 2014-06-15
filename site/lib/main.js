@@ -1,5 +1,5 @@
 (function() {
-  var chart, draw, drawChart, submit, validate;
+  var submit;
   var a, func, nu, gu, x0, xn, t0, tn, xcount, tcount;
 
   $(document).ready(function() {
@@ -25,10 +25,7 @@
     xcount.val("10");
     tcount.val("10");
 
-    chart = $("#chart");
     submit = $("#submit");
-    chart.css("width", $(document).width() - 340);
-    chart.css("height", $(document).height - 90);
     submit.on("click", draw);
   });
 
@@ -51,12 +48,9 @@
         tcount: tcount.val()
       },
       success: function(data) {
-        chart.empty();
         submit.button('reset');
-        drawChart2(data.data);
       },
       error: function(data) {
-        chart.empty();
         submit.button('reset');
         bootbox.alert("/data POST error");
       }

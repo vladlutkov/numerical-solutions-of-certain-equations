@@ -2,13 +2,13 @@
 #include <fstream>
 #include <cmath>
 #include <list>
+#include "mpi.h"
 
 double exact(double x, double t){
 	return cos(x)*sin(t);
 }
 
 double func(double x, double t, double Utx) {
-	//return cos(t)*cos(x) - sin(t)*sin(x);
 	return cos(t + x) + Utx - cos(x) * sin(t);
 }
 double nu(double x) {
@@ -77,7 +77,7 @@ int main()
 		
 		for(int i = 2; i < N; i++)  {
 			Fij = func(X[i], T[j], U[i][j]);
-			U[i][j+1] = 2*d*h/(2*h+3*a*s*d) * 
+			U[i][j+1] = 2*d*h/(2*h+3*a*s*d) *
 			(U[i][j]/d - 
 			a*s/ (2*h)*(U[i-2][j+1] - 4*U[i-1][j+1]) -
 			a*(1-s)/(2*h)*(U[i-2][j] - 4*U[i-1][j] + 3*U[i][j]) + Fij);
