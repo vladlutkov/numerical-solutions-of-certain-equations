@@ -12,7 +12,8 @@
   "dependencies": {
     "express": "^4.0.0",
     "body-parser": "^1.0.2",
-    "method-override": "^1.0.0"
+    "method-override": "^1.0.0",
+    "exec-sync": ""
   },
   "engines": {
     "node": "0.10.x"

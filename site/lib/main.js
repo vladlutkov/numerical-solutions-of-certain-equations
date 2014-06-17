@@ -7,6 +7,7 @@
     func = $("#func");
     nu = $("#nu");
     gu = $("#gu");
+    dgu = $("#dgu");
     x0 = $("#x0");
     xn = $("#xn");
     t0 = $("#t0");
@@ -15,15 +16,16 @@
     tcount = $("#tcount");
 
     a.val("1");
-    func.val("sin(x)+cos(x)");
+    func.val("cos(t + x) + Utx - cos(x) * sin(t)");
     nu.val("1");
-    gu.val("1");
+    gu.val("sin(t)");
+    dgu.val("cos(t)")
     x0.val("0");
-    xn.val("2");
+    xn.val("3.14159");
     t0.val("0");
-    tn.val("2");
-    xcount.val("10");
-    tcount.val("10");
+    tn.val("3.14159/2");
+    xcount.val("101");
+    tcount.val("101");
 
     submit = $("#submit");
     submit.on("click", draw);
