@@ -66,11 +66,11 @@ int main(int argc, char **argv)
 	}
 
 	for(int i = 0; i < N; i++) {
-		U[i][0] = nu(X[i]);
+		U[0][i] = nu(X[i]);
 	}
 
 	for(int j = 0; j < M; j++) {
-		U[0][j] = gu(T[j]);
+		U[j][0] = gu(T[j]);
 	}
 
 	double Fij;
@@ -79,39 +79,39 @@ int main(int argc, char **argv)
 	double Gj;
 	double Gj1;
 
-	for(int j = rank; j < M - 1; j++) {
-		if(U[1][j + 1] != inf) {
+	for(int j = rank; j < M - 1; j += rank) {
+		if(U[j + 1][1] != inf) {
 			std::cout << "process " << rank << " has continued main" << std::endl;
 			continue;
 		}
-		while(U[1][j] == inf){
+		while(U[j][1] == inf){
 			std::cout << "process " << rank << " waiting to receive in main" << std::endl;
 			MPI_Recv(&U, M*N, MPI_DOUBLE, MPI_ANY_SOURCE, type, MPI_COMM_WORLD, &status);
 		}
-		Fij = func(X[1], T[j], U[1][j]);
-		F0j = func(X[0], T[j], U[0][j]);
-		F0j1 = func(X[0], T[j + 1], U[0][j + 1]);
+		Fij = func(X[1], T[j], U[j][1]);
+		F0j = func(X[0], T[j], U[j][0]);
+		F0j1 = func(X[0], T[j + 1], U[j + 1][0]);
 		Gj = derivativeFromGu(T[j]);
 		Gj1 = derivativeFromGu(T[j + 1]);
-		U[1][j + 1] = d*h/(h + 2*a*s*d) *
-		( U[1][j]/d - a*s /(2*h)*(-4*U[0][j+1] -
+		U[j + 1][1] = d*h/(h + 2*a*s*d) *
+		( U[j][1]/d - a*s /(2*h)*(-4*U[j+1][0] -
 			2*h/a*(F0j1 - Gj1)) -
-		a*(1-s)/(2*h) * (-4*U[0][j] - 2*h/a*(F0j  - Gj) + 4*U[1][j]) + Fij);
+		a*(1-s)/(2*h) * (-4*U[j][0] - 2*h/a*(F0j  - Gj) + 4*U[j][1]) + Fij);
 
 		for(int i = 2; i < N; i++)  {
-			Fij = func(X[i], T[j], U[i][j]);
-			if(U[i][j + 1] != inf) {
+			Fij = func(X[i], T[j], U[j][i]);
+			if(U[j + 1][i] != inf) {
 				std::cout << "process " << rank << " has breaked sub" << std::endl;
 				break;
 			}
-			while(U[i][j] == inf){
+			while(U[j][i] == inf){
 				std::cout << "process " << rank << " waiting to receive in sub" << std::endl;
 				MPI_Recv(&U, M*N, MPI_DOUBLE, MPI_ANY_SOURCE, type, MPI_COMM_WORLD, &status);	
 			}
-			U[i][j+1] = 2*d*h/(2*h+3*a*s*d) *
-			(U[i][j]/d - 
-				a*s/ (2*h)*(U[i-2][j+1] - 4*U[i-1][j+1]) -
-				a*(1-s)/(2*h)*(U[i-2][j] - 4*U[i-1][j] + 3*U[i][j]) + Fij);
+			U[j+1][i] = 2*d*h/(2*h+3*a*s*d) *
+			(U[j][i]/d - 
+				a*s/ (2*h)*(U[j+1][i-2] - 4*U[j+1][i-1]) -
+				a*(1-s)/(2*h)*(U[j][i-2] - 4*U[j][i-1] + 3*U[j][i]) + Fij);
 			if(i%50 == 0) {
 				for (int k = 0; k < size; k++) {
 					if(k != rank) {
@@ -129,7 +129,7 @@ int main(int argc, char **argv)
 	for(int j = 0; j < M; j++){
 		for(int i = 0; i < N; i++) {
 			double ex = exact(X[i], T[j]);
-			double absolute = std::abs(ex - U[i][j]);
+			double absolute = std::abs(ex - U[j][i]);
 			if(absolute > diff_norm) {
 				diff_norm = absolute;
 				Imax = i;

@@ -82,19 +82,19 @@ int main()
 	
 	std::ofstream resultFile("resultfile.json");
 	resultFile << "{" << std::endl;
-	resultFile << "  x: [" << std::endl;
+	resultFile << "  \"x\": [" << std::endl;
 	for(int i = 0; i < N-1; i++) {
 		resultFile << "    " << X[i] << ","<< std::endl;
 	}
 	resultFile << "    " << X[N] << "],"<< std::endl;
 
-	resultFile << "  t: [" << std::endl;
+	resultFile << "  \"t\": [" << std::endl;
 	for(int j = 0; j < M-1; j++) {
 		resultFile << "    " << T[j] << ","<< std::endl;
 	}
 	resultFile << "    " << T[M] << "],"<< std::endl;
 
-	resultFile << "  u: [" << std::endl;
+	resultFile << "  \"u\": [" << std::endl;
 	for(int j = 0; j < M-1; j++){
 		resultFile << "    [";
 		for(int i = 0; i < N-1; i++) {
@@ -106,7 +106,7 @@ int main()
 	for(int i = 0; i < N-1; i++) {
 		resultFile << U[M][i] << ", ";
 	}
-	resultFile << U[M][N] << "]" << std::endl;
+	resultFile << U[M][N] << "]]" << std::endl;
 
 	resultFile << "}" << std::endl;
 	resultFile.close();
