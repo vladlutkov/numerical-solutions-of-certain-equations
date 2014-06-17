@@ -57,7 +57,16 @@
           <div class="col-xs-8">
             <div class="input-group">
               <span class="input-group-addon"><img src="images/gu.gif"></span>
-              <input id="gu" type="text" class="form-control" placeholder="u(x0,t)" required>
+              <input id="gu" type="text" class="form-control" placeholder="g(x0,t)" required>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-8">
+            <div class="input-group">
+              <span class="input-group-addon"><img src="images/dgu.gif"></span>
+              <input id="dgu" type="text" class="form-control" placeholder="g'(x0,t)" required>
             </div>
           </div>
         </div>
@@ -107,7 +116,7 @@
             </button>
           </div>
           <div class="col-xs-2">
-            <a href="/resultfile.json" class="btn btn-default" disabled="disabled">
+            <a id="download" href="resultfile.json" target="_blank" class="btn btn-default" disabled="disabled">
               <span class="glyphicon glyphicon-download"></span>
               Скачать
             </a>

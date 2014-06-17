@@ -14,10 +14,11 @@
     tn = $("#tn");
     xcount = $("#xcount");
     tcount = $("#tcount");
+    download = $("#download");
 
     a.val("1");
     func.val("cos(t + x) + Utx - cos(x) * sin(t)");
-    nu.val("1");
+    nu.val("0");
     gu.val("sin(t)");
     dgu.val("cos(t)")
     x0.val("0");
@@ -32,8 +33,8 @@
   });
 
   draw = function() {
-    chart.html("<div class=\"progress progress-striped active\">\n  <div class=\"progress-bar\"  role=\"progressbar\" style=\"width: 100%\"></div>\n</div>");
     submit.button('loading');
+    download.attr("disabled", "disabled");
     $.ajax({
       type: "POST",
       url: "/data",
@@ -42,6 +43,7 @@
         func: func.val(),
         nu: nu.val(),
         gu: gu.val(),
+        dgu: dgu.val(),
         x0: x0.val(),
         xn: xn.val(),
         t0: t0.val(),
@@ -51,6 +53,8 @@
       },
       success: function(data) {
         submit.button('reset');
+        download.removeAttr("disabled");
+
       },
       error: function(data) {
         submit.button('reset');

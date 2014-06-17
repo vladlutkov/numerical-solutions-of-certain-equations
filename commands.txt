@@ -6,4 +6,7 @@ ssh s0051@umt.imm.uran.ru
 scp s0051@umt.imm.uran.ru:~/solution.json
 
 mpicxx –o calc calc.cxx
-
+==============
+Server deploy:
+npm install
+bower install
